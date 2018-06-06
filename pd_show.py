@@ -13,7 +13,9 @@ def pd_show(filename):
     yun_ip_list = []
     yun_ip_dict = {}
     refer_unique_dict={}
+    refer_unique_dict2 = {}
     request_unique_dict={}
+    request_unique_dict2 = {}
     ip_unique_dict={}
     utm_unique_dict={}
     df = in_dataframe(filename)
@@ -33,6 +35,11 @@ def pd_show(filename):
             refer_unique_dict[refer_unique4]=top_referer[referer_list[i]]+refer_unique_dict[refer_unique4]
         except:
             refer_unique_dict[refer_unique4] = top_referer[referer_list[i]]
+
+        try:
+            refer_unique_dict2[referer_list[i]]=top_referer[referer_list[i]]+refer_unique_dict[referer_list[i]]
+        except:
+            refer_unique_dict2[referer_list[i]] = top_referer[referer_list[i]]
     # request------------------------
     request_list = top_request.index
     for i in range(len(request_list)):
@@ -48,6 +55,13 @@ def pd_show(filename):
             request_unique_dict[request_unique4] = top_request[request_list[i]]+request_unique_dict[request_unique4]
         except:
             request_unique_dict[request_unique4] = top_request[request_list[i]]
+
+        # request_unique44 = request_list[i]
+        try:
+            request_unique_dict2[request_list[i]] = top_request[request_list[i]]+request_unique_dict[request_list[i]]
+        except:
+            request_unique_dict2[request_list[i]] = top_request[request_list[i]]
+
     # ip------------------------
     ip_list = top_ip.index
     for i in range(len(ip_list)):
@@ -68,12 +82,16 @@ def pd_show(filename):
 
     # '--------输出------------------------------------------------------------------------------------------------'
     refer_unique_list = sorted(refer_unique_dict.items(), key=lambda v: v[1],reverse =True)
-    ip_unique_listt = sorted(ip_unique_dict.items(), key=lambda v: v[1],reverse =True)
+    refer_unique_list2 = sorted(refer_unique_dict2.items(), key=lambda v: v[1], reverse=True)
+    ip_unique_list = sorted(ip_unique_dict.items(), key=lambda v: v[1],reverse =True)
     request_unique_list = sorted(request_unique_dict.items(), key=lambda v: v[1],reverse =True)
+    request_unique_list2 = sorted(request_unique_dict2.items(), key=lambda v: v[1], reverse=True)
     utm_unique_list = sorted(utm_unique_dict.items(), key=lambda v: v[1],reverse =True)
     in_excel(refer_unique_list,'refer')
-    in_excel(ip_unique_listt,'ip')
+    in_excel(refer_unique_list2, 'refer')
+    in_excel(ip_unique_list,'ip')
     in_excel(request_unique_list,'request')
+    in_excel(request_unique_list2, 'request2')
     in_excel(utm_unique_list,'utm')
 
 
