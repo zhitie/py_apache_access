@@ -1,11 +1,16 @@
 # -*- coding:utf-8 -*-
-'''
-家南，3023787540@qq.com
-'''
+
 from pd_access_unique import unique_ip_list
 import re
 import os
-
+'''
+日志格式示例：
+111.231.176.99 - - [15/May/2018:00:01:09 +0800] "HEAD / HTTP/1.1" 301 - "-" "-"
+61.158.148.36 - - [15/May/2018:00:01:09 +0800] "GET /servicecheck/user HTTP/1.1" 200 37 "http://www.yidian51.com/utm_source=306&jd/f12-g8" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36"
+111.231.176.99 - - [15/May/2018:00:01:09 +0800] "HEAD / HTTP/1.1" 200 - "-" "-"
+40.77.167.47 - - [15/May/2018:00:01:09 +0800] "GET /buylist/t11-g98-f2-p2 HTTP/1.1" 200 27784 "-" "Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)"
+123.126.113.84 - - [15/May/2018:00:01:10 +0800] "GET /jd/g14-f34-s4 HTTP/1.1" 200 23674 "-" "Sogou web spider/4.0(+http://www.sogou.com/docs/help/webmasters.htm#07)"
+'''
 
 def w_file(file_name,date):
     out_file = open(file_name, 'a+')
@@ -45,8 +50,18 @@ def clean_access(filename):
                 action_line = 'drop'
         except:
             action_line = 'drop'
-        if action_line != 'drop':
-            w_file('result.txt',line.replace('\n',''))
+        if action_line == 'drop_yun':
+            w_file('drop_yun.txt',line.replace('\n',''))
+        elif action_line == 'drop_static':
+            w_file('drop_static.txt', line.replace('\n', ''))
+        elif action_line == 'drop_none':
+            w_file('drop_none.txt', line.replace('\n', ''))
+        elif action_line == 'drop_spider':
+            w_file('drop_spider.txt', line.replace('\n', ''))
+        elif action_line == 'drop_except':
+            w_file('drop_except.txt', line.replace('\n', ''))
+        else:
+            w_file('result.txt', line.replace('\n', ''))
 
 
 

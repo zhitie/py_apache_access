@@ -1,12 +1,9 @@
 # -*- coding: utf-8 -*-
-'''
-家南，3023787540@qq.com
-'''
 import os
 from py_clean_access import clean_access
 from pd_show import pd_show
 
-path = 'access_20180517.log'
+path = 'access2.log'
 if os.path.isdir(path):
     for filenames in os.walk(path):
         filenames_list = filenames[-1]
