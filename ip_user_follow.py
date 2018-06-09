@@ -15,10 +15,10 @@ def get_list(data):
     except:
         data2=''
     return data2
-def region_follow(filename):
+def region_follow(df):
     region_follow_list=[('region','num')]
 
-    df = in_dataframe(filename)
+    # df = in_dataframe(filename)
 
     # top_ip = df['ip'].value_counts()
     # ip_list = top_ip.index
@@ -33,10 +33,10 @@ def region_follow(filename):
         region = region_list[i]
         region_follow_list.append((region,top_region[region]))
     return region_follow_list
-def city_follow(filename):
+def city_follow(df):
     city_follow_list=[('city','num')]
 
-    df = in_dataframe(filename)
+    # df = in_dataframe(filename)
 
     # top_ip = df['ip'].value_counts()
     # ip_list = top_ip.index
@@ -51,9 +51,9 @@ def city_follow(filename):
         region = cit_list[i]
         city_follow_list.append((region,top_city[region]))
     return city_follow_list
-def visit_time_follow(filename):
+def visit_time_follow(df):
     visit_time_follow_list=[('time','num')]
-    df = in_dataframe(filename)
+    # df = in_dataframe(filename)
     top_visit_time = df['time_format'].value_counts()
     visit_time_list = top_visit_time.index
     for i in range(len(visit_time_list)):
@@ -65,14 +65,17 @@ def visit_time_follow(filename):
 if __name__ == "__main__":
     index = ('referer', 'referer_num')
     result_file = "user_analysis.xlsx"
+    filename = 'result.txt'
+    df = in_dataframe(filename)
+
     sheet_name1 = 'region'
-    region_list = region_follow('result.txt')
+    region_list = region_follow(df)
     in_excel(region_list, result_file, sheet_name1,2,'A','B',1)
     sheet_name2 = 'city'
-    city_list = city_follow('result.txt')
+    city_list = city_follow(df)
     in_excel(city_list, result_file, sheet_name2,2,'A','B',1)
     sheet_name3 = 'visit_time'
-    visit_time_list = visit_time_follow('result.txt')
+    visit_time_list = visit_time_follow(df)
     in_excel(visit_time_list, result_file, sheet_name3,2,'A','B',1)
 
 
